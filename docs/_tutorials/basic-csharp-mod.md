@@ -51,7 +51,7 @@ The following guide will walk you through step-by-step on how to create a basic 
 
 For more information on the Module folder structure, [Click Here](../_intro/folder-structure.md).
 
-### Setting up your Project
+### Setting up your Project (Windows)
 
 Before setting up a project, it is important to know that **this is not required for basic mods** (e.g. changing or adding items/characters/scenes).
 
@@ -61,6 +61,89 @@ Before setting up a project, it is important to know that **this is not required
 4. Now that your project is setup, [set your build path](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-change-the-build-output-directory?view=vs-2019) to the `Modules/ExampleMod/bin/Win64_Shipping_Client` directory in your game files.
 5. [Reference](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019) the `TaleWorlds.*` DLLs in the `bin\Win64_Shipping_Client` directory of your game files (not your module directory).
 6. [Reference](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019) the DLLs for each official module in `Modules\ModuleName\bin\Win64_Shipping_Client`.
+
+### Setting up your Project (Linux)
+
+Before setting up a project, it is important to know that **this is not required for basic mods** (e.g. changing or adding items/characters/scenes).
+It is assumed you have basic VSCode knowledge(how to install extensions, how to create .NET projects).
+
+**SDK**
+
+Since Mount & Blade 2: Bannerlord is written using the .NET Framework 4.7.2 you'll have to install the .NET SDK(don't worry about how we'll compile for .NET Framework we'll come back to it).
+Luckily it is rather easy to install as Microsoft has a comprehensive tutorial [here](https://learn.microsoft.com/en-us/dotnet/core/install/linux?WT.mc_id=dotnet-35129-website) on how to do it both manually and scripted.
+You can choose either but the scirpted one is easier to do.
+
+After installing the latest .NET version run the following command in the terminal:
+
+    ```
+    which dotnet
+    ```
+
+If a path is printed the SDK was successfully installed. If not check if the directory `/home/<YourUserName>/.dotnet` exists. If it does run the following command to add it to your `PATH` variable.
+**Note that this will not be carried over into the next session. Please check how to permanently add PATH variables if you wish to do that.**
+
+    ```
+    export PATH=$PATH:/home/<YourUserName>/.dotnet/
+    ```
+
+If you now run the previous `which` command again you should see a path being printed.
+
+**IDE**
+
+As Visual Studio is a Windows-only application we'll use Visual Studio Code. 
+It is of the utmost importance that you install VSCode using the command line as it is otherwise possible that VSCode is unable to open a terminal instance, making it impossible for it to find the installed .NET SDK.
+Luckily Visual Studio Code has a tutorial [here](https://code.visualstudio.com/docs/setup/linux) which covers multiple distros such as Ubuntu, Fedora, Arch, etc.
+
+Once you've followed your distobution specific installation guide run the following command:
+
+    ```
+    code --version
+    ```
+
+A result simiar to this should be printed:
+
+    ```
+    1.102.3
+    488a1f239235055e34e673291fb8d8c810886f81
+    x64
+    ```
+
+This will confirm that Visual Studio Code has been successfully installed.
+
+Once done start Visual Studio Code by typing:
+
+    ```
+    code
+    ```
+
+**Final setup**
+
+Once Visual Studio Code has started and you have **not** received an error message of the .NET SDK not being located a few extensions have to be installed:
+- C# Dev Kit
+- vscode-solution-explorer(Optional but very helpful)
+
+Once all extensions are installed create a new Class Library project.
+Edit the *.csproj file(either provided as a plain text file in the Explorer or Right Click->'Open file' using the vscode-solution-explorer) and modify it to look like this:
+
+    ```
+    <Project Sdk="Microsoft.NET.Sdk">
+
+      <PropertyGroup>
+        <!-- We target multiple Frameworks just to make sure we can at least compile for .NET 8.0(might be a different version depending on what you've installed) -->
+        <TargetFrameworks>net8.0;net472</TargetFrameworks>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <!-- This NuGet Package enables us to compile for the .NET Framework 4.7.2 by creating a dependency to the requested version -->
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0-preview.2"/>
+ 
+        <!-- You can also reference the TaleWorlds.*.dll files in the actual bin/Win64_Shipping_Client/ directory of the game files but you'll get some unnecessary Warnings because of some C++ *.dlls that way -->
+        <Reference Include="bin/Debug/net472/TaleWorlds.*.dll"/>
+      </ItemGroup>
+    </Project>
+    ```
+
+Now you should be set up to make Mount & Blade 2: Bannerlord on Linux.
 
 ### Debugging your Project (Optional)
 
