@@ -115,23 +115,23 @@ Once Visual Studio Code has started and you have **not** received an error messa
 Once all extensions are installed create a new Class Library project.
 Edit the *.csproj file(either provided as a plain text file in the Explorer or Right Click->'Open file' using the vscode-solution-explorer) and modify it to look like this:
 
-    ```xml
-    <Project Sdk="Microsoft.NET.Sdk">
+   ```xml
+   <Project Sdk="Microsoft.NET.Sdk">
 
-      <PropertyGroup>
-        <!-- We target multiple Frameworks just to make sure we can at least compile for .NET 8.0(might be a different version depending on what you've installed) -->
-        <TargetFrameworks>net8.0;net472</TargetFrameworks>
-      </PropertyGroup>
+     <PropertyGroup>
+       <!-- We target multiple Frameworks just to make sure we can at least compile for .NET 8.0(might be a different version depending on what you've installed) -->
+       <TargetFrameworks>net8.0;net472</TargetFrameworks>
+     </PropertyGroup>
 
-      <ItemGroup>
-        <!-- This NuGet Package enables us to compile for the .NET Framework 4.7.2 by creating a dependency to the requested version -->
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0-preview.2"/>
- 
-        <!-- You can also reference the TaleWorlds.*.dll files in the actual bin/Win64_Shipping_Client/ directory of the game files but you'll get some unnecessary Warnings because of some C++ *.dlls that way -->
-        <Reference Include="bin/Debug/net472/TaleWorlds.*.dll"/>
-      </ItemGroup>
-    </Project>
-    ```
+     <ItemGroup>
+       <!-- This NuGet Package enables us to compile for the .NET Framework 4.7.2 by creating a dependency to the requested version -->
+       <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0-preview.2"/>
+
+       <!-- You can also reference the TaleWorlds.*.dll files in the actual bin/Win64_Shipping_Client/ directory of the game files but you'll get some unnecessary Warnings because of some C++ *.dlls that way -->
+       <Reference Include="bin/Debug/net472/TaleWorlds.*.dll"/>
+     </ItemGroup>
+   </Project>
+   ```
 
 Now you should be set up to make Mount & Blade 2: Bannerlord on Linux.
 
