@@ -75,16 +75,12 @@ You can choose either but the scirpted one is easier to do.
 
 After installing the latest .NET version run the following command in the terminal:
 
-    ```
     which dotnet
-    ```
 
 If a path is printed the SDK was successfully installed. If not check if the directory `/home/<YourUserName>/.dotnet` exists. If it does run the following command to add it to your `PATH` variable.
 **Note that this will not be carried over into the next session. Please check how to permanently add PATH variables if you wish to do that.**
 
-    ```
     export PATH=$PATH:/home/<YourUserName>/.dotnet/
-    ```
 
 If you now run the previous `which` command again you should see a path being printed.
 
@@ -96,25 +92,19 @@ Luckily Visual Studio Code has a tutorial [here](https://code.visualstudio.com/d
 
 Once you've followed your distobution specific installation guide run the following command:
 
-    ```
     code --version
-    ```
 
 A result simiar to this should be printed:
 
-    ```
     1.102.3
     488a1f239235055e34e673291fb8d8c810886f81
     x64
-    ```
 
 This will confirm that Visual Studio Code has been successfully installed.
 
 Once done start Visual Studio Code by typing:
 
-    ```
     code
-    ```
 
 **Final setup**
 
@@ -125,7 +115,7 @@ Once Visual Studio Code has started and you have **not** received an error messa
 Once all extensions are installed create a new Class Library project.
 Edit the *.csproj file(either provided as a plain text file in the Explorer or Right Click->'Open file' using the vscode-solution-explorer) and modify it to look like this:
 
-    ```
+    ```xml
     <Project Sdk="Microsoft.NET.Sdk">
 
       <PropertyGroup>
